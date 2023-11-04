@@ -1,10 +1,10 @@
-package com.juliogomes.SaloonHairSystem.security;
+package com.juliogomes.SaloonHairSystem.infra.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.juliogomes.SaloonHairSystem.entity.user.User;
-import org.bouncycastle.math.ec.rfc8032.Ed25519;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +21,7 @@ public class TokenService {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             String token = JWT.create()
-                    .withIssuer("SallonHairSystem-api")
+                    .withIssuer("auth-api")
                     .withSubject(user.getLogin())
                     .withExpiresAt(genExpirationDate())
                     .sign(algorithm);
@@ -35,11 +35,11 @@ public class TokenService {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.require(algorithm)
-                    .withIssuer("SallonHairSystem-api")
+                    .withIssuer("auth-api")
                     .build()
                     .verify(token)
                     .getSubject();
-        } catch (JWTCreationException exception){
+        } catch (JWTVerificationException exception){
             return "";
         }
     }

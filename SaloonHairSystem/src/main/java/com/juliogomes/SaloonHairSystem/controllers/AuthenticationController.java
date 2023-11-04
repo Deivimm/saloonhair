@@ -4,18 +4,16 @@ import com.juliogomes.SaloonHairSystem.entity.RegisterDTO;
 import com.juliogomes.SaloonHairSystem.entity.user.AuthenticationDTO;
 import com.juliogomes.SaloonHairSystem.entity.user.LoginResponseDTO;
 import com.juliogomes.SaloonHairSystem.entity.user.User;
-import com.juliogomes.SaloonHairSystem.infra.repository.UserRepository;
-import com.juliogomes.SaloonHairSystem.security.TokenService;
+import com.juliogomes.SaloonHairSystem.repository.UserRepository;
+import com.juliogomes.SaloonHairSystem.infra.security.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("auth")
@@ -50,4 +48,28 @@ public class AuthenticationController {
         return ResponseEntity.ok().build();
 
         }
+    @GetMapping("/user/{login}")
+    public ResponseEntity<User> getUser(@PathVariable String login){
+        User user = (User) this.repository.findByLogin(login);
+        if(user == null) return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok(user);
+    }
+
+    @DeleteMapping("/delete/{login}")
+    public ResponseEntity deleteUser(@PathVariable String login){
+        User user = (User) this.repository.findByLogin(login);
+        if(user == null) return ResponseEntity.notFound().build();
+
+        this.repository.delete(user);
+        return ResponseEntity.ok().build();
+    }
+    @GetMapping("/me")
+    public ResponseEntity<User> getAuthenticatedUser(Authentication authentication){
+        User user = (User) authentication.getPrincipal();
+        return ResponseEntity.ok(user);
+    }
+
+
+
 }

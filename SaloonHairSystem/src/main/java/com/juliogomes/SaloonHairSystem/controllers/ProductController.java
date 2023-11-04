@@ -3,17 +3,16 @@ package com.juliogomes.SaloonHairSystem.controllers;
 import com.juliogomes.SaloonHairSystem.entity.product.Product;
 import com.juliogomes.SaloonHairSystem.entity.product.ProductRequestDTO;
 import com.juliogomes.SaloonHairSystem.entity.product.ProductResponseDTO;
-import com.juliogomes.SaloonHairSystem.infra.repository.ProductRepository;
+import com.juliogomes.SaloonHairSystem.repository.ProductRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("product")
+@RestController()
+@RequestMapping("/product")
 public class ProductController {
 
     @Autowired

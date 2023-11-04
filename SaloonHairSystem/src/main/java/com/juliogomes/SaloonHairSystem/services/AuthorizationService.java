@@ -1,6 +1,6 @@
 package com.juliogomes.SaloonHairSystem.services;
 
-import com.juliogomes.SaloonHairSystem.infra.repository.UserRepository;
+import com.juliogomes.SaloonHairSystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

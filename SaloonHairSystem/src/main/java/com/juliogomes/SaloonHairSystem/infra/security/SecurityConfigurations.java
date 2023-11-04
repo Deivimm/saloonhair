@@ -1,4 +1,4 @@
-package com.juliogomes.SaloonHairSystem.security;
+package com.juliogomes.SaloonHairSystem.infra.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

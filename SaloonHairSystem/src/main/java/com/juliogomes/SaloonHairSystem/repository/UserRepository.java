@@ -1,4 +1,4 @@
-package com.juliogomes.SaloonHairSystem.infra.repository;
+package com.juliogomes.SaloonHairSystem.repository;
 
 import com.juliogomes.SaloonHairSystem.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
