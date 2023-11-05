@@ -20,6 +20,7 @@ public class Fornecedor {
     private String nomeFantasia;
     private String endereco;
     private String cidade;
+    private String uf;
     private String cep;
     private String fone;
     private String celular;

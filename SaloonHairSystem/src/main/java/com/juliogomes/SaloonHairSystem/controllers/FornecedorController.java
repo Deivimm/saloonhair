@@ -4,14 +4,13 @@ import com.juliogomes.SaloonHairSystem.entity.fornecedor.Fornecedor;
 import com.juliogomes.SaloonHairSystem.entity.fornecedor.FornecedorRequestDTO;
 import com.juliogomes.SaloonHairSystem.entity.fornecedor.FornecedorResponseDTO;
 import com.juliogomes.SaloonHairSystem.repository.FornecedorRepository;
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/fornecedor")
@@ -40,7 +39,7 @@ public class FornecedorController {
     }
 
     @PutMapping("/{cnpj}")
-    public ResponseEntity<?> updateFornecedor(@PathVariable Long cnpj,@RequestBody @Valid FornecedorRequestDTO body){
+    public ResponseEntity<?> updateFornecedor(@PathVariable UUID cnpj, @RequestBody @Valid FornecedorRequestDTO body){
 
         if (repository.existsById(cnpj)){
 

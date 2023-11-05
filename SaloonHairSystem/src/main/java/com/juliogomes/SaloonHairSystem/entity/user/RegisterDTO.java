@@ -1,4 +1,4 @@
-package com.juliogomes.SaloonHairSystem.entity;
+package com.juliogomes.SaloonHairSystem.entity.user;
 
 import com.juliogomes.SaloonHairSystem.entity.user.UserRole;
 

@@ -1,6 +1,6 @@
 package com.juliogomes.SaloonHairSystem.controllers;
 
-import com.juliogomes.SaloonHairSystem.entity.RegisterDTO;
+import com.juliogomes.SaloonHairSystem.entity.user.RegisterDTO;
 import com.juliogomes.SaloonHairSystem.entity.user.AuthenticationDTO;
 import com.juliogomes.SaloonHairSystem.entity.user.LoginResponseDTO;
 import com.juliogomes.SaloonHairSystem.entity.user.User;
