@@ -10,6 +10,6 @@ public class VendasDTO {
     private Long clientCpf;
     private Long fornecedorCnpj;
     private Long productId;
-    private double valor;
+    private Double value;
 
 }

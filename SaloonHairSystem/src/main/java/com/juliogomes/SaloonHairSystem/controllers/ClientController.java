@@ -4,6 +4,7 @@ import com.juliogomes.SaloonHairSystem.entity.Client.Client;
 import com.juliogomes.SaloonHairSystem.entity.Client.ClientRequestDTO;
 import com.juliogomes.SaloonHairSystem.entity.Client.ClientResponseDTO;
 import com.juliogomes.SaloonHairSystem.repository.ClientRepository;
+import jakarta.persistence.Id;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,22 +22,22 @@ public class ClientController {
     @Autowired
     ClientRepository repository;
 
-    @PostMapping("/auth/client")
+    @PostMapping
     public ResponseEntity<?> postClient(@RequestBody @Valid ClientRequestDTO body){
         Client newClient = new Client();
 
         this.repository.save(newClient);
         return ResponseEntity.ok().build();
     }
-    @GetMapping("/{cpf}")
+    @GetMapping
     public ResponseEntity<?> getAllClient(){
         List<ClientResponseDTO> clientList = this.repository.findAll().stream().map(ClientResponseDTO::new).toList();
 
         return ResponseEntity.ok(clientList);
     }
-    @PutMapping("/{cpf}")
-    public ResponseEntity<?> updateClient(@PathVariable UUID cpf, @RequestBody @Valid ClientRequestDTO body){
-        Optional<Client> optionalClient = this.repository.findById(cpf);
+    @PutMapping
+    public ResponseEntity<?> updateClient(@PathVariable(value = "id") UUID id, @RequestBody @Valid ClientRequestDTO body){
+        Optional<Client> optionalClient = this.repository.findById(id);
         if (optionalClient.isPresent()) {
             Client client = optionalClient.get();
 
@@ -57,12 +58,12 @@ public class ClientController {
         }
     }
 
-    @DeleteMapping("/{cpf}")
-    public ResponseEntity<?> deleteClient(@PathVariable UUID cpf) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteClient(@PathVariable UUID id) {
         try {
-            Optional<Client> optionalClient = this.repository.findById(cpf);
+            Optional<Client> optionalClient = this.repository.findById(id);
             if (optionalClient.isPresent()) {
-                this.repository.deleteById(cpf);
+                this.repository.deleteById(id);
                 return ResponseEntity.ok().build();
             } else {
                 return ResponseEntity.notFound().build();

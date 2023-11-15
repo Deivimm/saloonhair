@@ -1,15 +1,14 @@
 package com.juliogomes.SaloonHairSystem.entity.Client;
 
-import java.util.UUID;
 
 public record ClientResponseDTO(
-        UUID cpf,
+        String cpf,
         String name,
         String secondName,
         String endereco,
         String cidade,
         String cep,
-        Integer rg,
+        String rg,
         String dateNasc,
         String fone,
         String celular1,

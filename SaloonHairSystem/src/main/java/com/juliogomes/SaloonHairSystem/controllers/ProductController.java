@@ -10,9 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController()
-@RequestMapping("/product")
+@RequestMapping("product")
 public class ProductController {
 
     @Autowired
@@ -32,4 +33,27 @@ public class ProductController {
         return ResponseEntity.ok(productList);
 
     }
+    @GetMapping("/{id}")
+    public ResponseEntity getProductById(@PathVariable String id){
+        Optional<Product> product = this.repository.findById(id);
+
+        if(product.isPresent()){
+            ProductResponseDTO responseDTO = new ProductResponseDTO(product.get());
+            return ResponseEntity.ok(responseDTO);
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteProduct(@PathVariable String id){
+        Optional<Product> product = this.repository.findById(id);
+
+        if(product.isPresent()){
+            this.repository.delete(product.get());
+            return ResponseEntity.ok().build();
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }

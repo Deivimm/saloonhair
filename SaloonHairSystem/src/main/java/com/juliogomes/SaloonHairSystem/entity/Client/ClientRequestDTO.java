@@ -5,6 +5,9 @@ import jakarta.validation.constraints.NotNull;
 
 public record ClientRequestDTO(
         @NotBlank
+        String cpf,
+
+        @NotNull
         String name,
 
         @NotNull
@@ -23,7 +26,7 @@ public record ClientRequestDTO(
         String cep,
 
         @NotNull
-        Integer rg,
+        String rg,
 
         @NotNull
         String dateNasc,

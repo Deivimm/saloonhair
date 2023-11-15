@@ -5,6 +5,7 @@ public enum UserRole {
 
     USER("user");
 
+
     private String role;
 
     UserRole(String role){

@@ -1,6 +1,7 @@
 package com.juliogomes.SaloonHairSystem.repository;
 
 import com.juliogomes.SaloonHairSystem.entity.Client.Client;
+import org.springframework.boot.autoconfigure.security.oauth2.server.servlet.OAuth2AuthorizationServerProperties;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;

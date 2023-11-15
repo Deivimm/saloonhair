@@ -1,10 +1,12 @@
 package com.juliogomes.SaloonHairSystem.entity.product;
 
+import com.juliogomes.SaloonHairSystem.entity.fornecedor.Fornecedor;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 
 
 @Table(name = "product")
@@ -20,10 +22,17 @@ public class Product {
 
     private String name;
 
-    private Integer price;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fornecedor_id")
+    private Fornecedor fornecedor;
+
+    private Double price;
+
+    private Double salesPrice;
 
     public Product(ProductRequestDTO data){
         this.price = data.price();
         this.name = data.name();
+        this.salesPrice = data.salesPrice();
     }
 }

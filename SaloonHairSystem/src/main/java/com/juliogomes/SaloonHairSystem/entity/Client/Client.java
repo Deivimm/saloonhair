@@ -2,9 +2,8 @@ package com.juliogomes.SaloonHairSystem.entity.Client;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.boot.autoconfigure.web.WebProperties;
 
-import java.util.UUID;
+
 
 @Entity(name = "client")
 @Table(name = "client")
@@ -15,23 +14,35 @@ import java.util.UUID;
 @EqualsAndHashCode(of = "id")
 public class Client {
 
+
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID cpf;
+    private String cpf;
+
     private String name;
+
     private String secondName;
+
     private String endereco;
+
     private String cidade;
+
     private String uf;
+
     private String cep;
-    private Integer rg;
+
+    private String  rg;
+
     private String dateNasc;
     private String fone;
+
     private String celular1;
+
     private String celular2;
+
     private String email;
 
     public Client(ClientRequestDTO data){
+
         this.name = data.name();
         this.secondName = data.secondName();
         this.endereco = data.endereco();

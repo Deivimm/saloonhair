@@ -31,7 +31,7 @@ public class Vendas {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    private double valor;
+    private double value;
 
 
 

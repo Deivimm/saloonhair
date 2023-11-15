@@ -1,16 +1,16 @@
 package com.juliogomes.SaloonHairSystem.infra.security;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTCreationException;
-import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.juliogomes.SaloonHairSystem.entity.user.User;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+        import com.auth0.jwt.JWT;
+        import com.auth0.jwt.algorithms.Algorithm;
+        import com.auth0.jwt.exceptions.JWTCreationException;
+        import com.auth0.jwt.exceptions.JWTVerificationException;
+        import com.juliogomes.SaloonHairSystem.entity.user.User;
+        import org.springframework.beans.factory.annotation.Value;
+        import org.springframework.stereotype.Service;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+        import java.time.Instant;
+        import java.time.LocalDateTime;
+        import java.time.ZoneOffset;
 
 @Service
 public class TokenService {
@@ -27,7 +27,7 @@ public class TokenService {
                     .sign(algorithm);
             return token;
         }catch (JWTCreationException exception){
-           throw new RuntimeException("Error while generation token", exception);
+            throw new RuntimeException("Error while generation token", exception);
 
         }
     }

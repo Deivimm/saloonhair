@@ -38,12 +38,12 @@ public class FornecedorController {
         return ResponseEntity.ok(fornecedorList);
     }
 
-    @PutMapping("/{cnpj}")
-    public ResponseEntity<?> updateFornecedor(@PathVariable UUID cnpj, @RequestBody @Valid FornecedorRequestDTO body){
+    @PutMapping
+    public ResponseEntity<?> updateFornecedor(@PathVariable UUID id, @RequestBody @Valid FornecedorRequestDTO body){
 
-        if (repository.existsById(cnpj)){
+        if (repository.existsById(id)){
 
-           Fornecedor fornecedor = repository.findById(cnpj).get();
+           Fornecedor fornecedor = repository.findById(id).get();
 
             fornecedor.setRazaoSocial(body.razaoSocial());
             fornecedor.setFone(body.fone());
