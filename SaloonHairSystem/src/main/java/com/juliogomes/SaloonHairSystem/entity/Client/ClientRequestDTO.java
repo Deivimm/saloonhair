@@ -1,7 +1,9 @@
 package com.juliogomes.SaloonHairSystem.entity.Client;
 
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+
 
 public record ClientRequestDTO(
         @NotBlank
@@ -9,7 +11,6 @@ public record ClientRequestDTO(
 
         @NotNull
         String name,
-
         @NotNull
         String secondName,
 

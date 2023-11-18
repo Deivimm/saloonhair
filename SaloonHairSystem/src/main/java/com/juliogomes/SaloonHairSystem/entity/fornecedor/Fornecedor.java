@@ -1,25 +1,21 @@
 package com.juliogomes.SaloonHairSystem.entity.fornecedor;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hibernate.validator.constraints.br.CNPJ;
+import lombok.*;
 
+@Entity(name = "fornecedor")
+@Table(name = "fornecedor")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "fornecedor")
+@EqualsAndHashCode(of = "id")
 public class Fornecedor {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-    @Column(unique = true)
+    @Column(unique = true, name = "cnpj")
     private String cnpj;
-
     private String razaoSocial;
     private String nomeFantasia;
     private String endereco;
@@ -28,7 +24,7 @@ public class Fornecedor {
     private String cep;
     private String fone;
     private String celular;
-    @Column(unique = true)
+    @Column(unique = true, name = "email")
     private String email;
 
     public Fornecedor(FornecedorRequestDTO data){

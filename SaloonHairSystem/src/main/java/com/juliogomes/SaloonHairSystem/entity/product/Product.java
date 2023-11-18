@@ -2,16 +2,13 @@ package com.juliogomes.SaloonHairSystem.entity.product;
 
 import com.juliogomes.SaloonHairSystem.entity.fornecedor.Fornecedor;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
+import lombok.*;
 
 
 @Table(name = "product")
 @Entity(name = "product")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -22,7 +19,7 @@ public class Product {
 
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "fornecedor_id")
     private Fornecedor fornecedor;
 
@@ -31,8 +28,9 @@ public class Product {
     private Double salesPrice;
 
     public Product(ProductRequestDTO data){
-        this.price = data.price();
         this.name = data.name();
+        this.price = data.price();
         this.salesPrice = data.salesPrice();
+
     }
 }

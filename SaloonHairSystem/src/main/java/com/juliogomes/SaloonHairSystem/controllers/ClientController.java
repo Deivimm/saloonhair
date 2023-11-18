@@ -3,6 +3,8 @@ package com.juliogomes.SaloonHairSystem.controllers;
 import com.juliogomes.SaloonHairSystem.entity.Client.Client;
 import com.juliogomes.SaloonHairSystem.entity.Client.ClientRequestDTO;
 import com.juliogomes.SaloonHairSystem.entity.Client.ClientResponseDTO;
+import com.juliogomes.SaloonHairSystem.entity.product.Product;
+import com.juliogomes.SaloonHairSystem.entity.product.ProductResponseDTO;
 import com.juliogomes.SaloonHairSystem.repository.ClientRepository;
 import jakarta.persistence.Id;
 import jakarta.validation.Valid;
@@ -16,15 +18,15 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/client")
+@RequestMapping("clients")
 public class ClientController {
 
     @Autowired
     ClientRepository repository;
 
     @PostMapping
-    public ResponseEntity<?> postClient(@RequestBody @Valid ClientRequestDTO body){
-        Client newClient = new Client();
+    public ResponseEntity postClient(@RequestBody @Valid ClientRequestDTO body){
+        Client newClient = new Client(body);
 
         this.repository.save(newClient);
         return ResponseEntity.ok().build();
@@ -35,8 +37,19 @@ public class ClientController {
 
         return ResponseEntity.ok(clientList);
     }
-    @PutMapping
-    public ResponseEntity<?> updateClient(@PathVariable(value = "id") UUID id, @RequestBody @Valid ClientRequestDTO body){
+    @GetMapping("/{id}")
+    public ResponseEntity getClientById(@PathVariable String id){
+        Optional<Client> client = this.repository.findById(id);
+
+        if(client.isPresent()){
+            ClientResponseDTO responseDTO = new ClientResponseDTO(client.get());
+            return ResponseEntity.ok(responseDTO);
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateClient(@PathVariable(value = "id") String id, @RequestBody @Valid ClientRequestDTO body){
         Optional<Client> optionalClient = this.repository.findById(id);
         if (optionalClient.isPresent()) {
             Client client = optionalClient.get();
@@ -59,7 +72,7 @@ public class ClientController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteClient(@PathVariable UUID id) {
+    public ResponseEntity<?> deleteClient(@PathVariable String id) {
         try {
             Optional<Client> optionalClient = this.repository.findById(id);
             if (optionalClient.isPresent()) {

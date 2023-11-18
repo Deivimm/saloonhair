@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 
-
 @Entity(name = "client")
 @Table(name = "client")
 @NoArgsConstructor
@@ -14,36 +13,31 @@ import lombok.*;
 @EqualsAndHashCode(of = "id")
 public class Client {
 
-
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
+
+    @Column(unique = true, name = "cpf")
     private String cpf;
-
     private String name;
-
     private String secondName;
-
     private String endereco;
-
     private String cidade;
-
     private String uf;
-
     private String cep;
-
     private String  rg;
-
     private String dateNasc;
     private String fone;
-
     private String celular1;
-
     private String celular2;
 
+    @Column(unique = true)
     private String email;
 
     public Client(ClientRequestDTO data){
 
         this.name = data.name();
+        this.cpf = data.cpf();
         this.secondName = data.secondName();
         this.endereco = data.endereco();
         this.cidade = data.cidade();

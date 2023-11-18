@@ -1,5 +1,7 @@
 package com.juliogomes.SaloonHairSystem.controllers;
 
+import com.juliogomes.SaloonHairSystem.entity.fornecedor.Fornecedor;
+import com.juliogomes.SaloonHairSystem.entity.fornecedor.FornecedorRequestDTO;
 import com.juliogomes.SaloonHairSystem.entity.product.Product;
 import com.juliogomes.SaloonHairSystem.entity.product.ProductRequestDTO;
 import com.juliogomes.SaloonHairSystem.entity.product.ProductResponseDTO;
@@ -44,6 +46,22 @@ public class ProductController {
             return ResponseEntity.notFound().build();
         }
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateProduct(@PathVariable(value = "id") String id, @RequestBody @Valid ProductRequestDTO body){
+        Optional<Product>OptionalProduct = this.repository.findById(id);
+        if (OptionalProduct.isPresent()){
+            Product product = OptionalProduct.get();
+
+            product.setName(body.name());
+            product.setPrice(body.price());
+            product.setSalesPrice(body.salesPrice());
+
+            this.repository.save(product);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
     @DeleteMapping("/{id}")
     public ResponseEntity deleteProduct(@PathVariable String id){
         Optional<Product> product = this.repository.findById(id);
@@ -55,5 +73,5 @@ public class ProductController {
             return ResponseEntity.notFound().build();
         }
     }
-
+//
 }

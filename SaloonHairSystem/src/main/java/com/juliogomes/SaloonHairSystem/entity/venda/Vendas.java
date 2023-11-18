@@ -6,6 +6,8 @@ import com.juliogomes.SaloonHairSystem.entity.product.Product;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,17 +21,17 @@ public class Vendas {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "client_cpf")
-    private Client client;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "client_id")
+    private List<Client> client;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fornecedor_cnpj")
-    private Fornecedor fornecedor;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "fornecedor_id")
+    private List<Fornecedor> fornecedor;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id")
-    private Product product;
+    private List<Product> products;
 
     private double value;
 

@@ -1,9 +1,12 @@
 package com.juliogomes.SaloonHairSystem.entity.fornecedor;
+
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 
+
 public record FornecedorRequestDTO(
-            @NotNull
+            @NotBlank
             String cnpj,
             @NotNull
             String razaoSocial,
