@@ -1,4 +1,4 @@
 package com.juliogomes.SaloonHairSystem.entity.user;
 
-public record AuthenticationDTO(String login, String password) {
+public record AuthenticationDTO(String name, String login, String password) {
 }

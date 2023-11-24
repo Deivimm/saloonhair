@@ -2,6 +2,7 @@ package com.juliogomes.SaloonHairSystem.entity.Client;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 
 @Entity(name = "client")

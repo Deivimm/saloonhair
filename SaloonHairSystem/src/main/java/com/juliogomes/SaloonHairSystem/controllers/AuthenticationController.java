@@ -14,7 +14,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/auth")
 public class AuthenticationController {
@@ -29,7 +32,7 @@ public class AuthenticationController {
     private TokenService tokenService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody @Valid AuthenticationDTO data){
+    public ResponseEntity<?> login(@RequestBody @Valid AuthenticationDTO data) {
         //creation token
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
@@ -37,39 +40,40 @@ public class AuthenticationController {
 
         return ResponseEntity.ok(new LoginResponseDTO(token));
     }
-    @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody @Valid RegisterDTO data){
-        if(this.repository.findByLogin(data.login()) != null) return ResponseEntity.badRequest().build();
 
-    String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
-    User newUser = new User(data.login(), encryptedPassword, data.role());
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody @Valid RegisterDTO data) {
+        if (this.repository.findByLogin(data.login()) != null) return ResponseEntity.badRequest().build();
+
+        String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
+        User newUser = new User(data.name(), data.login(), encryptedPassword, data.role());
 
         this.repository.save(newUser);
         return ResponseEntity.ok().build();
 
-        }
+    }
+
     @GetMapping("/user/{login}")
-    public ResponseEntity<User> getUser(@PathVariable String login){
-        User user = (User) this.repository.findByLogin(login);
-        if(user == null) return ResponseEntity.notFound().build();
+    public ResponseEntity<User> getUser(@PathVariable String login) {
+        User user = this.repository.findByLogin(login);
+        if (user == null) return ResponseEntity.notFound().build();
 
         return ResponseEntity.ok(user);
     }
 
     @DeleteMapping("/delete/{login}")
-    public ResponseEntity deleteUser(@PathVariable String login){
-        User user = (User) this.repository.findByLogin(login);
-        if(user == null) return ResponseEntity.notFound().build();
+    public ResponseEntity deleteUser(@PathVariable String login) {
+        User user = this.repository.findByLogin(login);
+        if (user == null) return ResponseEntity.notFound().build();
 
         this.repository.delete(user);
         return ResponseEntity.ok().build();
     }
+
     @GetMapping("/me")
-    public ResponseEntity<User> getAuthenticatedUser(Authentication authentication){
+    public ResponseEntity<User> getAuthenticatedUser(Authentication authentication) {
         User user = (User) authentication.getPrincipal();
         return ResponseEntity.ok(user);
     }
-
-
 
 }

@@ -22,19 +22,22 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
+    private String name;
     private String login;
     private String password;
     private UserRole role;
 
-    public User(String login, String password, UserRole role){
+    public User(String name, String login, String password, UserRole role) {
+        this.name = name;
         this.login = login;
         this.password = password;
         this.role = role;
 
     }
-    @Override//Users permissions
+
+    @Override // Users permissions
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(this.role == UserRole.ADMIN)return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"),
+        if (this.role == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"),
                 new SimpleGrantedAuthority("ROLE_USER"));
         else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }

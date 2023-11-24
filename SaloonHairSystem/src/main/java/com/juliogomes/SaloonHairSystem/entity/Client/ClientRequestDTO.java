@@ -25,20 +25,18 @@ public record ClientRequestDTO(
 
         @NotNull
         String cep,
-
-        @NotNull
+        
         String rg,
 
         @NotNull
         String dateNasc,
 
-        @NotNull
         String fone,
 
         @NotNull
         String celular1,
 
-        @NotNull
+
         String celular2,
 
         @NotNull
